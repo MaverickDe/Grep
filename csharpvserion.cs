@@ -34,6 +34,7 @@ class Grep
 if(args.Length == 0)
         {
             Console.WriteLine("Empty Command");
+            return;
         }
 
 string command = args[0];
@@ -71,10 +72,22 @@ string command = args[0];
             }
             case "FIND":
             {
+                if (args.Length < 3)
+                {
+                    Console.WriteLine("Source and filter required");
+                    return;
+                }
+                FIND(args[1], args[2]);
                 break;
             }
             case "REPLACE":
             {
+                if (args.Length < 4)
+                {
+                    Console.WriteLine("Source, filter and replacement required");
+                    return;
+                }
+                REPLACE(args[1], args[2], args[3]);
                 break;
 
             }
@@ -155,8 +168,8 @@ FIND (string source , string filter)
             if (line.Contains(filter))
             {
                 Console.WriteLine($"Found '{filter}' in line {index + 1}: {line}");  
-index++;
                 }
+index++;
                 
                 
                 }
@@ -165,10 +178,10 @@ index++;
          }
 
 
-    public static void Main()
+    public static void Main(string[] args  )
     {
-        string content = Read("test.txt");
-        Console.WriteLine(content);
+    Grep grep = new Grep();
+    grep.Run(args);
     }
     
 }
