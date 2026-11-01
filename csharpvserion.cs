@@ -104,7 +104,11 @@ string command = args[0];
 
     }
 
-
+WRITE (string source , string content)
+    {
+        
+         File.WriteAllText(source, content);
+    }
     Copy (string source , string destination)
     {
         
@@ -127,6 +131,38 @@ string command = args[0];
 
     }
 
+
+    REPLACE (string source , string filter,string replacement)
+    {
+        
+      string []lines  = File.ReadAllLines(source);
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (lines[i].Contains(filter))
+            {
+                lines[i] = lines[i].Replace(filter, replacement);   }}
+         WRITE(source, string.Join(Environment.NewLine, lines));
+         
+         }
+
+FIND (string source , string filter)
+    {
+        
+       string[] lines = File.ReadAllLines(source);
+      int  index = 0;
+        foreach (string line in lines)
+        {
+            if (line.Contains(filter))
+            {
+                Console.WriteLine($"Found '{filter}' in line {index + 1}: {line}");  
+index++;
+                }
+                
+                
+                }
+         
+         
+         }
 
 
     public static void Main()
